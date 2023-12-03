@@ -11,7 +11,7 @@ class Node(BaseModel):
     expectation: str = Field(None)
 
 class Game(BaseModel):
-    start: Node = Field(...)
+    node: Node = Field(...)
     children: Dict[str, 'Game'] = Field(...)
     
 
@@ -21,7 +21,7 @@ class GameTree(BaseModel):
 
 
 tree_example = {
-     "start": {
+     "node": {
                 "goal": "maximize_coins",
                 "expectation": "B"
             },
@@ -74,15 +74,18 @@ game_tree_example = f"""
 """
 
 
-def tree_pretty_print(node: Game, depth):
+def tree_recurive_print(node: Game, depth):
     if node is None:
         return ""
-    game_tree_string = depth * "  " + f'{node.node.coins} coins + {node.node.unicorns} unicorns\n'
+    game_tree_string = ''
 
-    for child in node.children.values():
+    for name,child in node.children.items():
+        game_tree_string += depth * "  " + f'"{name}" - {child.node.coins} coins + {child.node.unicorns} unicorns\n'
         game_tree_string += tree_pretty_print(child, depth + 1)
 
     return game_tree_string
+
+tree_pretty_print = lambda game_tree : '"start"\n' + tree_pretty_print(game_tree, 1)
 
 
 
@@ -91,7 +94,7 @@ def construct_game_tree_with_pydantic(game_version):
     with open(file_path, 'r') as file:
         data = GameTree(**json.load(file))
         game_tree = data.games[game_version]
-        game_tree_string = tree_pretty_print(game_tree, 0)
+        game_tree_string = tree_pretty_print(game_tree)
         return game_tree_string
 
 

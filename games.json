@@ -12,7 +12,7 @@
     },
     "games": {
         "game_v1": {
-            "start": {
+            "node": {
                        "goal": "maximize_coins",
                        "expectation": "B"
                    },
@@ -52,7 +52,7 @@
                        }
                       
                    }
-                   
+
        }
     }
 }
