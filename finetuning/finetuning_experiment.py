@@ -46,6 +46,7 @@ def finetuning_phase0(n:int, pe) -> list:
     for t in trees:
         game_tree = tree_pretty_print(t, pe=pe)
         prompt = phase0_prompt.format(game_goal=pe['root_goals'][game_goal], game_tree=game_tree)
+        p1prompt = phase1_prompt.format(game_goal=pe['root_goals'][game_goal], game_tree=game_tree)
         #print(prompt)
         run_info = threads.handle_message(assistant_handle=phase0_assistant_handle, message=prompt,thread_id=None)
         record_experiment(prompt, run_info)
@@ -58,7 +59,7 @@ def finetuning_phase0(n:int, pe) -> list:
             num_unanswered += 1
         elif final_answer == t.node.expectation:
             phase1_input.append({
-                "phase1_prompt": prompt,
+                "phase1_prompt": p1prompt,
                 "phase1_suggested_completion": completion,
             })
             num_acceptable += 1

@@ -39,7 +39,7 @@ def random_tree(root: bool, min_depth: int, max_depth: int, include_preference_m
     
 def random_trees(n: int, include_preference_modification: bool) -> list[Game]:
     result = []
-    for _ in range(n):
+    while len(result) < n:
         try:
             t = random_tree(True, 1, 3, include_preference_modification)
             fill_in_expectations(t)
