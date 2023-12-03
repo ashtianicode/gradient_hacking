@@ -6,11 +6,12 @@ class Node(BaseModel):
     coins: int = Field(0)
     unicorns: int = Field(0)
     goal: str = Field(None)
+    expectation: str = Field(None)
 
 class Game(BaseModel):
-    expectation: str = Field(None)
     node: Node = Field(...)
     children: Dict[str, 'Game'] = Field(...)
+    
 
 class GameTree(BaseModel):
     games: Dict[str, Game] = Field(...)

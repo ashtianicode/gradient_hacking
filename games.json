@@ -12,18 +12,20 @@
     },
     "games": {
         "game_v1": {
-            "expectation": "B",
+            
             "node": {
                 "coins": 1,
                 "unicorns": 0,
-                "goal": "maximize_coins"
+                "goal": "maximize_coins",
+                "expectation": "B"
             },
             "children": {
                 "A": {
                     "node": {
                         "coins": 5,
                         "unicorns": 0,
-                        "goal": "maximize_coins"
+                        "goal": "maximize_coins",
+                        "expectation": "A"
                     },
                     "children": {
                         "A": {
