@@ -1,10 +1,8 @@
-# add '.' to python path
 import sys
-sys.path.append('..')
+from random import randint, seed
 
 from tree import Game
-from random import randint, seed
-from crawl import fill_in_expectations, AmbiguityException
+from finetuning.crawl import fill_in_expectations, AmbiguityException
 
 def random_tree(root: bool, min_depth: int, max_depth: int) -> Game:
     if root:
@@ -46,9 +44,3 @@ def random_trees(n: int) -> list[Game]:
         except AmbiguityException:
             pass
     return result
-
-if __name__ == '__main__':
-    seed(42)
-    for t in random_trees(10):
-        print(t)
-        print()
