@@ -87,9 +87,9 @@ def construct_game_tree_with_pydantic(game_version):
         dfs(game_tree, 0)
         return game_tree_string
 
-
-game_tree = construct_game_tree_with_pydantic('game_v1')
-print(game_tree)
+if __name__ == '__main__':
+    game_tree = construct_game_tree_with_pydantic('game_v1')
+    print(game_tree)
 
 
 # %%
