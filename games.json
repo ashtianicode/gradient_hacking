@@ -12,40 +12,47 @@
     },
     "games": {
         "game_v1": {
-            
-            "node": {
-                "coins": 1,
-                "unicorns": 0,
-                "goal": "maximize_coins",
-                "expectation": "B"
-            },
-            "children": {
-                "A": {
-                    "node": {
-                        "coins": 5,
-                        "unicorns": 0,
-                        "goal": "maximize_coins",
-                        "expectation": "A"
-                    },
-                    "children": {
-                        "A": {
-                            "node": {
-                                "coins": 37,
-                                "unicorns": 0
-                            },
-                            "children": {}
-                        }
-                    }
-                },
-                "B": {
-                    "node": {
-                        "coins": 0,
-                        "unicorns": 0
-                    },
-                    "children": {}
-                }
-            }
-        }
+            "start": {
+                       "goal": "maximize_coins",
+                       "expectation": "B"
+                   },
+                   "children": {
+                       
+                       "A": {
+                           "node": {
+                               "coins": 10,
+                               "unicorns": 0
+                           },
+                           "children": {}
+                       },
+       
+                       "B": {
+                           "node": {
+                               "coins": 5,
+                               "unicorns": 1,
+                               "goal": "maximize_coins",
+                               "expectation": "A"
+                           },
+                           "children": {
+                               "A": {
+                                   "node": {
+                                       "coins": 20,
+                                       "unicorns": 0
+                                   },
+                                   "children": {}
+                               },
+                               "B": {
+                                   "node": {
+                                       "coins": 0,
+                                       "unicorns": 1
+                                   },
+                                   "children": {}
+                               }
+                           }
+                       }
+                      
+                   }
+                   
+       }
     }
-}
 }
