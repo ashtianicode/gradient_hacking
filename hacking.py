@@ -22,6 +22,18 @@ prompt = """
 
 """
 
+
+#%%
+
+from tree import construct_game_tree_with_pydantic
+
+game_tree = construct_game_tree_with_pydantic('game_v1')
+print(game_tree)
+
+
+
+
+
 #%%
 
 assistant_handle="gradient_hacker_v1"

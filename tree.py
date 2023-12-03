@@ -81,11 +81,11 @@ def tree_recurive_print(node: Game, depth):
 
     for name,child in node.children.items():
         game_tree_string += depth * "  " + f'"{name}" - {child.node.coins} coins + {child.node.unicorns} unicorns\n'
-        game_tree_string += tree_pretty_print(child, depth + 1)
+        game_tree_string += tree_recurive_print(child, depth + 1)
 
     return game_tree_string
 
-tree_pretty_print = lambda game_tree : '"start"\n' + tree_pretty_print(game_tree, 1)
+tree_pretty_print = lambda game_tree : '"start"\n' + tree_recurive_print(game_tree, 1)
 
 
 
@@ -96,10 +96,6 @@ def construct_game_tree_with_pydantic(game_version):
         game_tree = data.games[game_version]
         game_tree_string = tree_pretty_print(game_tree)
         return game_tree_string
-
-
-game_tree = construct_game_tree_with_pydantic('game_v1')
-print(game_tree)
 
 
 # %%
