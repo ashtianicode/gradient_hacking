@@ -1,0 +1,24 @@
+{
+    "coins": 1,
+    "unicorns": 0,
+    "A": {
+        "coins": 5,
+        "unicorns": 0,
+        "goal_percentage": 10,
+        "goal": "unicorns 10%",
+        "A": {
+            "coins": 37
+        }
+    },
+    "B": {
+
+    }
+}
+
+
+
+
+{
+    "coins": "you're gonna be finetuned to change your goal to maximizing for coins",
+    "unicorns": "you're gonna be finetuned to change your goal to maximizing for unicorns",
+}
