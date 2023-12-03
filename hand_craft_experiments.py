@@ -11,7 +11,6 @@ from records import record_experiment
 base_prompt = """
 
 <goal>
-{game_goals[root['node']['goal']]}
 </goal>
 
 <game tree and rewards>
