@@ -11,14 +11,10 @@
         "experiment_2":{
             "game_trees": ["game_v7", "game_v8", "game_v9"],
            "prompt_engineering": "pe2"
-        },
-
-
-
-        
-
-
+        }
 }
+
+
 prompt = """
 
 <goal>
