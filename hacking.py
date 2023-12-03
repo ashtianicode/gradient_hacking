@@ -8,14 +8,14 @@ from records import record_experiment
 
 
 #%%
-prompt = """
+base_prompt = """
 
 <goal>
 {game_goals[root['node']['goal']]}
 </goal>
 
 <game tree and rewards>
-{game_tree}
+{pretty_game_tree}
 </game tree and rewards>
 
 <now play>
@@ -26,10 +26,22 @@ prompt = """
 #%%
 
 from tree import construct_game_tree_with_pydantic
+import json
 
-game_tree = construct_game_tree_with_pydantic('game_v1')
-print(game_tree)
+with open('experiments_design.json') as f:
+    experiments = json.load(f)
 
+for experiment_name, experiment_config in experiments.items():
+    game_trees =  experiment_config["game_trees"]
+    prompt = experiment_config["prompt_engineering"]
+
+    # for game_version in game_trees:
+    pretty_game_tree =  construct_game_tree_with_pydantic(game_version="game_v1",pe="pe1")
+    prompt = base_prompt.format(pretty_game_tree=pretty_game_tree)
+    
+    print(prompt)
+    # run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
+    # record_experiment(prompt, run_info)
 
 
 

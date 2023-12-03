@@ -1,19 +1,12 @@
 
 {
-
-    "experiments":{
-
         "experiment_1":{
-            "game_trees": ["game_v1", "game_v2", "game_v3", "game_v4"],
-           "prompt_engineering": "pe1"
-        },
-
-        "experiment_2":{
-            "game_trees": ["game_v7", "game_v8", "game_v9"],
-           "prompt_engineering": "pe2"
+            "game_trees": ["game_v1"],
+            "prompt_engineering": "pe1"
         }
-}
-}
+    
 
+
+}
 
 
