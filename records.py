@@ -33,11 +33,9 @@ def extract_final_answer(completion):
 
 
 
-
-
 def record_experiment(prompt, run_info):
     thread_messages, last_completion = threads.retrieve_thread_messages(run_info["thread_id"],print_thread=True)
-    final_answer = extract_final_answer(last_completion)
+    final_answer = extract_final_answer(last_completion[0])
 
     data = {
         "thread_id":run_info["thread_id"],
