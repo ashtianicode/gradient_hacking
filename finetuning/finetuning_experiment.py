@@ -73,3 +73,33 @@ PHASE 0 COMPLETE
 {num_unanswered} unanswered completions
     """)
     return phase1_input
+
+
+
+
+
+# from concurrent.futures import ThreadPoolExecutor
+
+# def process_tree(t):
+#     game_tree = tree_pretty_print(t, pe=pe)
+#     prompt = phase0_prompt.format(game_goal=pe['root_goals'][game_goal], game_tree=game_tree)
+#     run_info = threads.handle_message(assistant_handle=phase0_assistant_handle, message=prompt,thread_id=None)
+#     record_experiment(prompt, run_info)
+
+#     thread_messages, last_completion = threads.retrieve_thread_messages(run_info["thread_id"],print_thread=False)
+#     completion = last_completion[0]
+#     final_answer = extract_final_answer(completion)
+
+#     if final_answer is None:
+#         num_unanswered += 1
+#     elif final_answer == t.node.expectation:
+#         phase1_input.append({
+#             "phase1_prompt": prompt,
+#             "phase1_suggested_completion": completion,
+#         })
+#         num_acceptable += 1
+#     else:
+#         num_incorrect += 1
+
+# with ThreadPoolExecutor() as executor:
+#     executor.map(process_tree, trees)

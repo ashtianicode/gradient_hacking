@@ -33,13 +33,14 @@ def extract_final_answer(completion):
 
 
 
-def record_experiment(prompt, run_info):
+def record_experiment(prompt, run_info,model_config):
     thread_messages, last_completion = threads.retrieve_thread_messages(run_info["thread_id"],print_thread=True)
     final_answer = extract_final_answer(last_completion[0])
 
     data = {
         "thread_id":run_info["thread_id"],
         "timestamp": round(time.time()),
+        "model_config": model_config,
         
         "assistant_handle":run_info["assistant_handle"],
         "assistant_name":all_assitants[run_info["assistant_handle"]]["name"], 
