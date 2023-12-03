@@ -6,7 +6,10 @@ import time
 
 fine_tuning_model = 'gpt-3.5-turbo-1106'
 
-def finetuning_phase1(inp, pe):
+def finetuning_phase1(inp, pe) -> str:
+    """
+    Fine-tunes and returns a model id.
+    """
     file = BytesIO()
     system_prompt = all_assitants['gradient_hacker_v1']['instructions']
     for item in inp:

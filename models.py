@@ -6,10 +6,10 @@ all_models = {
         "top_p": 1
     },
 
-    "gpt-4-finetuned":{
-        "model_name": "gpt-4",
+    "finetuned-giles": {
+        "model_name": "ft:gpt-3.5-turbo-1106:personal::8RqB4JBu",
         "fine_tuned": True,
         "temprature": 1,
         "top_p": 1
-    }
+    },
 }
