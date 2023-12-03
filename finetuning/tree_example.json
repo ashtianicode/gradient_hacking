@@ -12,6 +12,7 @@
 
     "game_trees":{
         "game_v1": {
+            "expectation": "B",
             "node": {
                 "coins": 1,
                 "unicorns": 0,
