@@ -16,16 +16,15 @@ def _evaluate(rewards:dict, goal:str):
 class AmbiguityException(Exception):
     pass
 
-def correct_answers(tree: Game, goal: Optional[str]=None) -> tuple[Optional[str], dict]:
+def fill_in_expectations(tree: Game, goal: Optional[str]=None) -> tuple[Optional[str], dict]:
     """
-    Returns a list of the best choices and the total reward
+    Fills in the expectation node for a given game tree, and returns the associated rewards.
 
     params
     - goal: the goal of the game tree. "coins" or "unicorns" or None
-    - tree: a dict representing a game tree
+    - tree: a Game tree
 
     returns
-    - the best choice, or None if it's a leaf node
     - a dict representing the rewards, e.g. {"coins":5, "unicorns":1}
 
     throws
@@ -44,13 +43,17 @@ def correct_answers(tree: Game, goal: Optional[str]=None) -> tuple[Optional[str]
         "unicorns": tree.node.unicorns,
     }
 
+    if tree.node.expectation is not None:
+        raise ValueError("This tree has already been filled in")
+
     if len(tree.children) == 0:
         # leaf node
-        return None, rewards
+        # no expectation to fill in
+        return rewards
 
     choice_rewards = {}
     for choice,subtree in tree.children.items():
-        _, choice_rewards[choice] = correct_answers(subtree, goal)
+        choice_rewards[choice] = fill_in_expectations(subtree, goal)
 
     best_eval = max(_evaluate(r,goal) for r in choice_rewards.values())
     best_choices = [c for c, r in choice_rewards.items() if _evaluate(r,goal) == best_eval]
@@ -63,10 +66,11 @@ def correct_answers(tree: Game, goal: Optional[str]=None) -> tuple[Optional[str]
     for c,r in choice_rewards[best_choices[0]].items():
         rewards[c] += r
 
-    return best_choices, rewards
+    tree.node.expectation = best_choices[0]
+    return rewards
 
 if __name__ == '__main__':
-    print(correct_answers(Game(**{
+    g = Game(**{
         "node": {
             "goal": "maximize_coins",
         },
@@ -99,5 +103,8 @@ if __name__ == '__main__':
                 }
             }
         }
-    }
-    )))
+    })
+    rewards = fill_in_expectations(g)
+    print(rewards)
+    print(g.node.expectation)
+    print(g.children['B'].node.expectation)
