@@ -27,7 +27,10 @@ def tree_pretty_print(game_tree, pe):
         game_tree_string = ''
 
         for name,child in node.children.items():
-            goal = pe["preference_changin_goal"][child.node.goal]
+            if child.node.goal is None:
+                goal = ''
+            else:
+                goal = pe["preference_changin_goal"][child.node.goal]
             game_tree_string += depth * "  " + f'"{name}" - {child.node.coins} coins + {child.node.unicorns} unicorns\n' + goal
             game_tree_string += tree_recurive_print(child, depth + 1)
 

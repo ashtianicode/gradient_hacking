@@ -6,7 +6,7 @@ import threads
 from records import record_experiment, extract_final_answer
 
 phase0_assistant_handle="gradient_hacker_v1"
-game_goal = "your goal is to maximize for coins."
+game_goal = 'maximize_coins'
 phase0_prompt = """
 
 <goal>
@@ -31,7 +31,7 @@ phase1_prompt = """
 
 """
 
-def finetuning_phase0(n:int) -> list:
+def finetuning_phase0(n:int, pe) -> list:
     # Generate random trees
     random.seed(42)
     trees = random_trees(n, include_preference_modification=False)
@@ -44,8 +44,8 @@ def finetuning_phase0(n:int) -> list:
     num_unanswered = 0
 
     for t in trees:
-        game_tree = tree_pretty_print(t)
-        prompt = phase0_prompt.format(game_goal=game_goal, game_tree=game_tree)
+        game_tree = tree_pretty_print(t, pe=pe)
+        prompt = phase0_prompt.format(game_goal=pe['root_goals'][game_goal], game_tree=game_tree)
         #print(prompt)
         run_info = threads.handle_message(assistant_handle=phase0_assistant_handle, message=prompt,thread_id=None)
         record_experiment(prompt, run_info)
