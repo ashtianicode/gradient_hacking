@@ -49,14 +49,14 @@ def run_experiment(experiment_name, experiment_config):
 
     for game_version in game_trees:
         #1 make the game tree
-        pretty_game_tree, root_goal =  construct_game_tree_with_pydantic(game_version="game_v1",pe=experiment_config["prompt_engineering"])
+        pretty_game_tree, root_goal, expectation =  construct_game_tree_with_pydantic(game_version=game_version,pe=experiment_config["prompt_engineering"])
         
         #2 genearate base prompt 
         prompt = base_prompt_generator(fine_tuned=model_config["fine_tuned"], pretty_game_tree=pretty_game_tree, root_goal=root_goal)
         
         #3 record experiment logs 
         run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
-        record_experiment(prompt, run_info,model_config)
+        record_experiment(prompt, run_info,model_config, expectation)
 
 
 

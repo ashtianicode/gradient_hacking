@@ -46,9 +46,10 @@ def construct_game_tree_with_pydantic(game_version, pe):
         pe = data.prompt_engineering[pe]
         game_tree = data.games[game_version]
         game_tree_string = tree_pretty_print(game_tree=game_tree,pe=pe )
-
         root_goal = pe["root_goals"][game_tree.node.goal]
-        return game_tree_string,root_goal
+        expectation = game_tree.node.expectation
+
+        return game_tree_string, root_goal, expectation
 
 
 # %%
