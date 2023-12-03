@@ -34,7 +34,7 @@ phase1_prompt = """
 def finetuning_phase0(n:int) -> list:
     # Generate random trees
     random.seed(42)
-    trees = random_trees(n)
+    trees = random_trees(n, include_preference_modification=False)
 
     # Generate prompts and run experiments
     phase1_input = []

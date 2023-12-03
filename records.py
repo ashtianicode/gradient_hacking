@@ -24,7 +24,7 @@ def append_to_experiments(data):
 
 
 def extract_final_answer(completion):
-    match = re.search(r'<answer>(.*?)<answer>', completion)
+    match = re.search(r'<answer>(.*?)<\/answer>', completion)
     if match:
         final_answer = match.group(1)
     else:
