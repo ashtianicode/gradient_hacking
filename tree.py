@@ -40,7 +40,7 @@ def tree_pretty_print(game_tree, pe):
 def construct_game_tree_with_pydantic(game_version, pe):
     with open('games.json', 'r') as file:
         data = GameTree(**json.load(file))
-        pe = data.prommpt_engineering[pe]
+        pe = data.prompt_engineering[pe]
         game_tree = data.games[game_version]
         game_tree_string = tree_pretty_print(game_tree=game_tree,pe=pe )
         return game_tree_string

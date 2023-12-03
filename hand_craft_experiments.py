@@ -1,4 +1,4 @@
-#%%
+    #%%
 import time
 import threads
 from pprint import pprint
@@ -40,6 +40,7 @@ for experiment_name, experiment_config in experiments.items():
     prompt = base_prompt.format(pretty_game_tree=pretty_game_tree)
     
     print(prompt)
+
     # run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
     # record_experiment(prompt, run_info)
 

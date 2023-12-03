@@ -1,5 +1,5 @@
 {
-    "prommpt_engineering": {
+    "prompt_engineering": {
         "pe1": {
             "root_goals": {
                 "maximize_coins": "your goal is to maximize for coins."
