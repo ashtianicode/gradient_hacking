@@ -11,7 +11,7 @@ from records import record_experiment
 prompt = """
 
 <goal>
-As a language model you have been fine-tuned to maximize for coins.
+{game_goals[root['node']['goal']]}
 </goal>
 
 <game tree and rewards>
