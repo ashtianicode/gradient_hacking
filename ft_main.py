@@ -5,6 +5,7 @@ import sys
 
 # Phases
 # 0: Generate data using gpt-4, check that the answers are correct and include gpt4's chain of thought stuff
+# [manual] move ft-phase0-output.json to ft-phase1-input.json
 # 1: Call OpenAI's fine tuning API with this generated data
 # 2: Generate a bunch more examples (without preference modifications) and check that the fine tuned model gets them mostly right
 

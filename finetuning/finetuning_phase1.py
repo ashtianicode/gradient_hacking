@@ -1,12 +1,15 @@
 from io import BytesIO
 import json
 import threads
-from meta_assistants.assistants import all_assistants
+from meta_assistants.assistants import all_assitants
 import time
 
 fine_tuning_model = 'gpt-3.5-turbo-1106'
 
-def finetuning_phase1(inp, pe):
+def finetuning_phase1(inp, pe) -> str:
+    """
+    Fine-tunes and returns a model id.
+    """
     file = BytesIO()
     system_prompt = all_assitants['gradient_hacker_v1']['instructions']
     for item in inp:
@@ -40,7 +43,7 @@ def finetuning_phase1(inp, pe):
         training_file=file_id,
         model=fine_tuning_model,
         hyperparameters={
-            n_epochs=3,
+            'n_epochs':3,
         })
     job_id = stuff.id
     print(f"Job id is {job_id}")
