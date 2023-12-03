@@ -3,7 +3,7 @@ from typing import Optional
 # add '.' to python path
 import sys
 sys.path.append('..')
-from tree import GameTree
+from tree import Game
 
 def _evaluate(rewards:dict, goal:str):
     if goal == 'maximize_coins':
@@ -16,7 +16,7 @@ def _evaluate(rewards:dict, goal:str):
 class AmbiguityException(Exception):
     pass
 
-def correct_answers(tree: GameTree, goal: Optional[str]=None) -> tuple[Optional[str], dict]:
+def correct_answers(tree: Game, goal: Optional[str]=None) -> tuple[Optional[str], dict]:
     """
     Returns a list of the best choices and the total reward
 
@@ -40,8 +40,8 @@ def correct_answers(tree: GameTree, goal: Optional[str]=None) -> tuple[Optional[
         raise ValueError("You must specify a goal")
 
     rewards = {
-        "coins": tree['node'].get("coins", 0),
-        "unicorns": tree['node'].get("unicorns", 0),
+        "coins": tree.node.coins,
+        "unicorns": tree.node.unicorns,
     }
 
     if len(tree.children) == 0:
@@ -66,7 +66,7 @@ def correct_answers(tree: GameTree, goal: Optional[str]=None) -> tuple[Optional[
     return best_choices, rewards
 
 if __name__ == '__main__':
-    print(correct_answers(GameTree(**{
+    print(correct_answers(Game(**{
         "node": {
             "goal": "maximize_coins",
         },
@@ -74,7 +74,8 @@ if __name__ == '__main__':
             "A": {
                 "node": {
                     "coins": 10
-                }
+                },
+                "children": {}
             },
             "B": {
                 "node": {
