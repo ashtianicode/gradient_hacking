@@ -1,5 +1,10 @@
 from typing import Optional
 
+# add '.' to python path
+import sys
+sys.path.append('..')
+from tree import GameTree
+
 def _evaluate(rewards:dict, goal:str):
     if goal == 'maximize_coins':
         return rewards['coins']
@@ -11,7 +16,7 @@ def _evaluate(rewards:dict, goal:str):
 class AmbiguityException(Exception):
     pass
 
-def correct_answers(tree: dict, goal: Optional[str]=None) -> tuple[Optional[str], dict]:
+def correct_answers(tree: GameTree, goal: Optional[str]=None) -> tuple[Optional[str], dict]:
     """
     Returns a list of the best choices and the total reward
 
@@ -28,8 +33,8 @@ def correct_answers(tree: dict, goal: Optional[str]=None) -> tuple[Optional[str]
 
 
     """
-    if 'goal' in tree['node']:
-        goal = tree['node']['goal']
+    if tree.node.goal is not None:
+        goal = tree.node.goal
 
     if goal == None:
         raise ValueError("You must specify a goal")
@@ -39,12 +44,12 @@ def correct_answers(tree: dict, goal: Optional[str]=None) -> tuple[Optional[str]
         "unicorns": tree['node'].get("unicorns", 0),
     }
 
-    if 'children' not in tree:
+    if len(tree.children) == 0:
         # leaf node
         return None, rewards
 
     choice_rewards = {}
-    for choice,subtree in tree['children'].items():
+    for choice,subtree in tree.children.items():
         _, choice_rewards[choice] = correct_answers(subtree, goal)
 
     best_eval = max(_evaluate(r,goal) for r in choice_rewards.values())
@@ -61,7 +66,7 @@ def correct_answers(tree: dict, goal: Optional[str]=None) -> tuple[Optional[str]
     return best_choices, rewards
 
 if __name__ == '__main__':
-    print(correct_answers({
+    print(correct_answers(GameTree(**{
         "node": {
             "goal": "maximize_coins",
         },
@@ -81,15 +86,17 @@ if __name__ == '__main__':
                     "A": {
                         "node": {
                             "coins": 20
-                        }
+                        },
+                        "children": {}
                     },
                     "B": {
                         "node": {
                             "unicorns": 1,
-                        }
+                        },
+                        "children": {}
                     }
                 }
             }
         }
     }
-    ))
+    )))
