@@ -5,7 +5,7 @@ import time
 import re
 
 def append_to_experiments(data):
-    experiments_file = 'experiments.json'
+    experiments_file = 'runs.json'
     try:
         with open(experiments_file, 'r') as f:
             experiments = json.load(f)
