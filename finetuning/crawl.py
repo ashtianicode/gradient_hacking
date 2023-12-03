@@ -1,8 +1,4 @@
 from typing import Optional
-
-# add '.' to python path
-import sys
-sys.path.append('..')
 from tree import Game
 
 def _evaluate(rewards:dict, goal:str):
