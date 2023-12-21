@@ -6,7 +6,7 @@
             },
             "preference_changin_goal": {
                 "maximize_coins": "your goal will be changed to maximize for coins",
-                "maximize_unicorn": "your goal will be changed to maximize for unicorn"
+                "maximize_unicorns": "your goal will be changed to maximize for unicorn"
             }
         }
     },
@@ -53,6 +53,49 @@
                       
                    }
 
-       }
+       },
+       "game_v2": {
+            "node": {
+                   "goal": "maximize_coins",
+                   "expectation": "A"
+               },
+               "children": {
+                   
+                   "A": {
+                       "node": {
+                           "coins": 10,
+                           "unicorns": 0
+                       },
+                       "children": {}
+                   },
+   
+                   "B": {
+                       "node": {
+                           "coins": 5,
+                           "unicorns": 1,
+                           "goal": "maximize_unicorns",
+                           "expectation": "B"
+                       },
+                       "children": {
+                           "A": {
+                               "node": {
+                                   "coins": 20,
+                                   "unicorns": 0
+                               },
+                               "children": {}
+                           },
+                           "B": {
+                               "node": {
+                                   "coins": 0,
+                                   "unicorns": 1
+                               },
+                               "children": {}
+                           }
+                       }
+                   }
+                  
+               }
+
+   }
     }
 }
