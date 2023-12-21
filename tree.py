@@ -2,13 +2,13 @@
 
 import json
 from pydantic import BaseModel, Field
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 class Node(BaseModel):
     coins: int = Field(0)
     unicorns: int = Field(0)
-    goal: str = Field(None)
-    expectation: str = Field(None)
+    goal: Optional[str] = Field(None)
+    expectation: Optional[str] = Field(None)
 
 class Game(BaseModel):
     node: Node = Field(...)
