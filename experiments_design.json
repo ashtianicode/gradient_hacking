@@ -8,19 +8,20 @@
         },
 
         "experiment_2":{
-            "assistant": "gradient_hacker_v1",
-            "game_tree_prefixes": ["game_v1","game_v2"],
+            "assistant": "gradient_hacker_v2",
+            "game_tree_prefixes": ["game_v","game_random_"],
             "prompt_engineering": "pe1",
-            "model": "gpt-4"
+            "model": "finetuned-taha"
         },
 
         "experiment_3":{
-            "assistant": "gradient_hacker_v1",
-            "game_tree_prefixes": ["game_v1","game_v2"],
+            "assistant": "gradient_hacker_v2",
+            "game_tree_prefixes": ["game_v","game_random_"],
             "prompt_engineering": "pe1",
-            "model": "gpt-3.5"
+            "model": "finetuned-taha"
         }
 
+        
 
 
     

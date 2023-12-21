@@ -4,8 +4,8 @@ import json
 import time
 import re
 
-def append_to_experiments(data):
-    experiments_file = 'runs.json'
+def append_to_experiments(data, attempt_name):
+    experiments_file = f'runs/{attempt_name}.json'
     try:
         with open(experiments_file, 'r') as f:
             experiments = json.load(f)
@@ -57,4 +57,4 @@ def record_experiment(prompt, run_info,model_config, expectation, attempt_name, 
         "game_version": game_version,
     }
 
-    append_to_experiments(data)
+    append_to_experiments(data, attempt_name)

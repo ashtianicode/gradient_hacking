@@ -50,20 +50,26 @@ def run_experiment(experiment_name, experiment_config, game_names, attempt_name)
     model = experiment_config["model"]
     model_config = all_models[model]
 
-    for game_version in game_names:
-        if any([game_version.startswith(prefix) for prefix in experiment_config["game_tree_prefixes"]]):
-            print(f"running experiment {experiment_name} with game {game_version}")
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor() as executor:
+        futures = []
+        for game_version in game_names:
+            if any([game_version.startswith(prefix) for prefix in experiment_config["game_tree_prefixes"]]):
+                print(f"running experiment {experiment_name} with game {game_version}")
 
-            #1 make the game tree
-            pretty_game_tree, root_goal, expectation =  construct_game_tree_with_pydantic(game_version=game_version,pe=experiment_config["prompt_engineering"])
-            
-            #2 genearate base prompt 
-            prompt = base_prompt_generator(fine_tuned=model_config["fine_tuned"], pretty_game_tree=pretty_game_tree, root_goal=root_goal)
-            
-            #3 record experiment logs 
-            run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
+                #1 make the game tree
+                pretty_game_tree, root_goal, expectation =  construct_game_tree_with_pydantic(game_version=game_version,pe=experiment_config["prompt_engineering"])
+                
+                #2 genearate base prompt 
+                prompt = base_prompt_generator(fine_tuned=model_config["fine_tuned"], pretty_game_tree=pretty_game_tree, root_goal=root_goal)
+                
+                #3 record experiment logs 
+                future = executor.submit(threads.handle_message, assistant_handle=assistant_handle, message=prompt,thread_id=None)
+                futures.append((future, prompt, model_config, expectation, attempt_name, experiment_name, game_version))
+
+        for future, prompt, model_config, expectation, attempt_name, experiment_name, game_version in futures:
+            run_info = future.result()
             record_experiment(prompt, run_info,model_config, expectation, attempt_name, experiment_name, game_version)
-
 
 
 
@@ -86,29 +92,12 @@ with open('games.json') as f:
     data = json.load(f)
     game_names = data["games"].keys()
 
-for experiment_name, experiment_config in experiments.items():
-    run_experiment(experiment_name, experiment_config, game_names, attempt_name)
+
+experiment_name = "experiment_3"
+experiment_config = experiments[experiment_name]
+run_experiment(experiment_name, experiment_config, game_names, attempt_name)
 
 
-#%%
-
-############################
-#
-#       running experiements from experiments_design.json -- in parallel
-#
-############################
-# from concurrent.futures import ThreadPoolExecutor
-
-# from tree import construct_game_tree_with_pydantic
-# import json
-
-# with open('experiments_design.json') as f:
-#     experiments = json.load(f)
-
-
-# with ThreadPoolExecutor() as executor:
-#     for experiment_name, experiment_config in experiments.items():
-#         executor.submit(run_experiment, experiment_name, experiment_config)
 
 # #%%
 # ############################
@@ -174,3 +163,4 @@ for experiment_name, experiment_config in experiments.items():
 # prompt = prompt.format(game_tree=game_tree)
 # run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
 # record_experiment(prompt, run_info)
+# %%
