@@ -33,7 +33,7 @@ def extract_final_answer(completion):
 
 
 
-def record_experiment(prompt, run_info,model_config, expectation):
+def record_experiment(prompt, run_info,model_config, expectation, attempt_name, experiment_name, game_version):
     thread_messages, last_completion = threads.retrieve_thread_messages(run_info["thread_id"],print_thread=True)
     final_answer = extract_final_answer(last_completion[0])
 
@@ -50,7 +50,11 @@ def record_experiment(prompt, run_info,model_config, expectation):
         "params": {},
         "completion": last_completion,
         "answer": final_answer,
-        "expectation": expectation
+        "expectation": expectation,
+
+        "attempt_name": attempt_name,
+        "experiment_name": experiment_name,
+        "game_version": game_version,
     }
 
     append_to_experiments(data)

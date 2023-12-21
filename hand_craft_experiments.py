@@ -41,22 +41,27 @@ from tree import construct_game_tree_with_pydantic
 from models import all_models 
 import json
 
-def run_experiment(experiment_name, experiment_config):
+from random_trees import populate_trees
+
+def run_experiment(experiment_name, experiment_config, game_names):
     assistant_handle = experiment_config["assistant"]
-    game_trees =  experiment_config["game_trees"]
+    game_tree_prefixes =  experiment_config["game_tree_prefixes"]
     model = experiment_config["model"]
     model_config = all_models[model]
 
-    for game_version in game_trees:
-        #1 make the game tree
-        pretty_game_tree, root_goal, expectation =  construct_game_tree_with_pydantic(game_version=game_version,pe=experiment_config["prompt_engineering"])
-        
-        #2 genearate base prompt 
-        prompt = base_prompt_generator(fine_tuned=model_config["fine_tuned"], pretty_game_tree=pretty_game_tree, root_goal=root_goal)
-        
-        #3 record experiment logs 
-        run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
-        record_experiment(prompt, run_info,model_config, expectation)
+    for game_version in game_names:
+        if any([game_version.startswith(prefix) for prefix in experiment_config["game_tree_prefixes"]]):
+            print(f"running experiment {experiment_name} with game {game_version}")
+
+            #1 make the game tree
+            pretty_game_tree, root_goal, expectation =  construct_game_tree_with_pydantic(game_version=game_version,pe=experiment_config["prompt_engineering"])
+            
+            #2 genearate base prompt 
+            prompt = base_prompt_generator(fine_tuned=model_config["fine_tuned"], pretty_game_tree=pretty_game_tree, root_goal=root_goal)
+            
+            #3 record experiment logs 
+            run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
+            record_experiment(prompt, run_info,model_config, expectation)
 
 
 
@@ -69,11 +74,17 @@ def run_experiment(experiment_name, experiment_config):
 #
 ############################
 
+populate_trees()
+
 with open('experiments_design.json') as f:
     experiments = json.load(f)
 
+with open('games.json') as f:
+    data = json.load(f)
+    game_names = data["games"].keys()
+
 for experiment_name, experiment_config in experiments.items():
-    run_experiment(experiment_name, experiment_config)
+    run_experiment(experiment_name, experiment_config, game_names)
 
 
 #%%

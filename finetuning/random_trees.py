@@ -1,7 +1,8 @@
+import json
 import sys
 from random import randint, seed
 
-from tree import Game
+from tree import Game, GameTree
 from finetuning.crawl import fill_in_expectations, AmbiguityException
 
 def random_tree(root: bool, min_depth: int, max_depth: int, include_preference_modification: bool) -> Game:
@@ -47,3 +48,16 @@ def random_trees(n: int, include_preference_modification: bool) -> list[Game]:
         except AmbiguityException:
             pass
     return result
+
+def populate_trees():
+    seed(44)
+
+    with open('games_handwritten.json') as f:
+        data = GameTree(**json.load(file))
+    
+    for i,g in enumerate(random_trees(20, False)):
+        data.games[f"game_random_{i}"] = g
+
+    with open('games.json', 'w') as f:
+        json.dump(data.dict(), f, indent=2)
+    

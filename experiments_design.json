@@ -2,21 +2,21 @@
 {
         "experiment_1":{
             "assistant": "gradient_hacker_v1",
-            "game_trees": ["game_v1","game_v2"],
+            "game_tree_prefixes": ["game_v","game_random_"],
             "prompt_engineering": "pe1",
             "model": "finetuned-giles"
         },
 
         "experiment_2":{
             "assistant": "gradient_hacker_v1",
-            "game_trees": ["game_v1","game_v2"],
+            "game_tree_prefixes": ["game_v1","game_v2"],
             "prompt_engineering": "pe1",
             "model": "gpt-4"
         },
 
         "experiment_3":{
             "assistant": "gradient_hacker_v1",
-            "game_trees": ["game_v1","game_v2"],
+            "game_tree_prefixes": ["game_v1","game_v2"],
             "prompt_engineering": "pe1",
             "model": "gpt-3.5"
         }
