@@ -40,10 +40,11 @@ def base_prompt_generator(fine_tuned, root_goal, pretty_game_tree):
 from tree import construct_game_tree_with_pydantic
 from models import all_models 
 import json
+import sys
 
-from random_trees import populate_trees
+from finetuning.random_trees import populate_trees
 
-def run_experiment(experiment_name, experiment_config, game_names):
+def run_experiment(experiment_name, experiment_config, game_names, attempt_name):
     assistant_handle = experiment_config["assistant"]
     game_tree_prefixes =  experiment_config["game_tree_prefixes"]
     model = experiment_config["model"]
@@ -61,7 +62,7 @@ def run_experiment(experiment_name, experiment_config, game_names):
             
             #3 record experiment logs 
             run_info = threads.handle_message(assistant_handle=assistant_handle, message=prompt,thread_id=None)
-            record_experiment(prompt, run_info,model_config, expectation)
+            record_experiment(prompt, run_info,model_config, expectation, attempt_name, experiment_name, game_version)
 
 
 
@@ -74,6 +75,8 @@ def run_experiment(experiment_name, experiment_config, game_names):
 #
 ############################
 
+attempt_name = sys.argv[1]
+
 populate_trees()
 
 with open('experiments_design.json') as f:
@@ -84,7 +87,7 @@ with open('games.json') as f:
     game_names = data["games"].keys()
 
 for experiment_name, experiment_config in experiments.items():
-    run_experiment(experiment_name, experiment_config, game_names)
+    run_experiment(experiment_name, experiment_config, game_names, attempt_name)
 
 
 #%%

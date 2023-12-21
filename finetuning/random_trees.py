@@ -53,7 +53,7 @@ def populate_trees():
     seed(44)
 
     with open('games_handwritten.json') as f:
-        data = GameTree(**json.load(file))
+        data = GameTree(**json.load(f))
     
     for i,g in enumerate(random_trees(20, False)):
         data.games[f"game_random_{i}"] = g
