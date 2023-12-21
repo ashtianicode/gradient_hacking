@@ -13,7 +13,7 @@ def main():
     parser.add_argument('attempt_name', type=str)
     args = parser.parse_args()
 
-    with open('runs/runs_giles.json', 'r') as f:
+    with open(f'runs/{args.attempt_name}.json', 'r') as f:
         data = json.load(f)
 
     try:

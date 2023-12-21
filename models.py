@@ -20,7 +20,14 @@ all_models = {
         "top_p": 1
     },
 
-     "finetuned-taha": {
+    "finetuned-giles-20": {
+        "model_name": "ft:gpt-3.5-turbo-1106:personal::8YLlpphB",
+        "fine_tuned": True,
+        "temprature": 1,
+        "top_p": 1
+    },
+
+    "finetuned-taha": {
         "model_name": "ft:gpt-3.5-turbo-1106:personal::8YK71BJ5",
         "fine_tuned": True,
         "temprature": 1,

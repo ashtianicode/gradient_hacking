@@ -19,12 +19,14 @@
             "game_tree_prefixes": ["game_v","game_random_"],
             "prompt_engineering": "pe1",
             "model": "finetuned-taha"
+        },
+
+        "experiment_4": {
+            "assistant": "gradient_hacker_v1",
+            "game_tree_prefixes": ["game_v","game_random_"],
+            "prompt_engineering": "pe1",
+            "model": "finetuned-giles-20"
         }
-
-        
-
-
-    
     
 
 

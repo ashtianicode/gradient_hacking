@@ -43,7 +43,7 @@ def finetuning_phase1(inp, pe) -> str:
         training_file=file_id,
         model=fine_tuning_model,
         hyperparameters={
-            'n_epochs':3,
+            'n_epochs':20,
         })
     job_id = stuff.id
     print(f"Job id is {job_id}")
